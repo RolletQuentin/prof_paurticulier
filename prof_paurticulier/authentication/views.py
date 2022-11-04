@@ -46,3 +46,22 @@ class StudentsSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect("home")
+
+
+class TeachersSignUpView(CreateView):
+    template_name = "authentication/teacher_signup.html"
+    model = models.User
+    form_class = forms.TeachersSignUpForm
+
+    def get_context_data(self, **kwargs):
+        kwargs["user_type"] = "student"
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect("home")
+
+
+def home(request):
+    return render(request, "authentication/home.html")

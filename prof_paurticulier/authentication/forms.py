@@ -23,11 +23,40 @@ class StudentsSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_student = True
         user.save()
-        student = Student.objects.create(user=user)
-        student.interest.add(*self.cleaned_data.get("interests"))
-        student.grade.add(*self.cleaned_data.get("grade"))
-        student.school.add(*self.cleaned_data.get("school"))
+        student = Student.objects.create(
+            user=user,
+            grade=self.cleaned_data.get("grade"),
+            school=self.cleaned_data.get("school"),
+        )
+        student.interests.add(*self.cleaned_data.get("interests"))
         return user
+
+
+class TeachersSignUpForm(UserCreationForm):
+    interests = forms.ModelMultipleChoiceField(
+        queryset=SchoolSubject.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+    )
+    grades = forms.ModelMultipleChoiceField(
+        queryset=Grade.objects.all(), widget=forms.CheckboxSelectMultiple, required=True
+    )
+    # profil_picture = forms.ImageField()
+
+    class Meta(UserCreationForm):
+        model = User
+
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_teacher = True
+        user.save()
+        teacher = Teacher.objects.create(
+            user=user,
+            # profile_picture=self.cleaned_data("profil_picture"),
+        )
+        teacher.interests.add(*self.cleaned_data.get("interests"))
+        teacher.grades.add(*self.cleaned_data.get("grades"))
 
 
 class LoginForm(forms.Form):
