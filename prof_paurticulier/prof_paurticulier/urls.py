@@ -22,6 +22,8 @@ from authentication.views import (
     LoginPageView,
     StudentsSignUpView,
     TeachersSignUpView,
+    update_user,
+    logout_user,
     home,
     set_initial_dataset,
 )
@@ -29,9 +31,12 @@ from authentication.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home"),
+    # authentication
     path("login/", LoginPageView.as_view(), name="login"),
     path("signup/student/", StudentsSignUpView.as_view(), name="student_sign_up"),
     path("signup/teacher/", TeachersSignUpView.as_view(), name="teacher_sign_up"),
+    path("user-change/", update_user, name="update_user"),
+    path("logout/", logout_user, name="logout"),
     path("set-initial-dataset/", set_initial_dataset, name="set_initial_dataset"),
 ]
 

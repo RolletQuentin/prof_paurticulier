@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.views.generic import View, CreateView
 
 # from django import forms
 from . import models, forms
 
 
+# Log In
 class LoginPageView(View):
     template_name = "authentication/login.html"
     form_class = forms.LoginForm
@@ -33,6 +35,7 @@ class LoginPageView(View):
         )
 
 
+# Sign Up
 class StudentsSignUpView(CreateView):
     template_name = "authentication/student_signup.html"
     model = models.User
@@ -63,6 +66,26 @@ class TeachersSignUpView(CreateView):
         return redirect("home")
 
 
+# Update informations
+@login_required
+def update_user(request):
+    user = models.User.objects.get(username=request.user.username)
+    if user.is_teacher:
+        form = forms.TeachersSignUpForm(instance=user)
+    elif user.is_student:
+        form = forms.StudentsSignUpForm(instance=user)
+    else:
+        form = forms.SignUpForm(instance=user)
+    return render(request, "authentication/update_user.html", {"form": form})
+
+
+# Log out
+def logout_user(request):
+    logout(request)
+    return redirect("login")
+
+
+# Bullshit
 def home(request):
     return render(request, "authentication/home.html")
 
