@@ -65,3 +65,31 @@ class TeachersSignUpView(CreateView):
 
 def home(request):
     return render(request, "authentication/home.html")
+
+
+def set_initial_dataset(request):
+    # Grades
+    models.Grade(name="6ème").save()
+    models.Grade(name="5ème").save()
+    models.Grade(name="4ème").save()
+    models.Grade(name="3ème").save()
+    models.Grade(name="2nd").save()
+    models.Grade(name="1ère").save()
+    models.Grade(name="Term.").save()
+    models.Grade(name="Prépa").save()
+
+    # SchoolSubject
+    models.SchoolSubject(name="Maths").save()
+    models.SchoolSubject(name="Physique").save()
+    models.SchoolSubject(name="Chimie").save()
+    models.SchoolSubject(name="Français").save()
+    models.SchoolSubject(name="Anglais").save()
+    models.SchoolSubject(name="Informatique").save()
+
+    # School
+    models.School(name="Lycée A").save()
+    models.School(name="Lycée B").save()
+    models.School(name="Lycée C").save()
+    models.School(name="Collège A").save()
+    models.School(name="Collège A").save()
+    return redirect("home")

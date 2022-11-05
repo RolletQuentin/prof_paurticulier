@@ -36,14 +36,17 @@ class TeachersSignUpForm(UserCreationForm):
     interests = forms.ModelMultipleChoiceField(
         queryset=SchoolSubject.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=True,
     )
     grades = forms.ModelMultipleChoiceField(
-        queryset=Grade.objects.all(), widget=forms.CheckboxSelectMultiple, required=True
+        queryset=Grade.objects.all(), widget=forms.CheckboxSelectMultiple
     )
-    # profil_picture = forms.ImageField()
+    profil_picture = forms.ImageField(required=False)
 
-    class Meta(UserCreationForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields["profile_picture"].required = False
+
+    class Meta(UserCreationForm.Meta):
         model = User
 
     @transaction.atomic
@@ -53,7 +56,7 @@ class TeachersSignUpForm(UserCreationForm):
         user.save()
         teacher = Teacher.objects.create(
             user=user,
-            # profile_picture=self.cleaned_data("profil_picture"),
+            profile_picture=self.cleaned_data.get("profil_picture"),
         )
         teacher.interests.add(*self.cleaned_data.get("interests"))
         teacher.grades.add(*self.cleaned_data.get("grades"))

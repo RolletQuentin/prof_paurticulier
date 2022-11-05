@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from authentication.views import (
     LoginPageView,
     StudentsSignUpView,
     TeachersSignUpView,
     home,
+    set_initial_dataset,
 )
 
 urlpatterns = [
@@ -29,4 +32,8 @@ urlpatterns = [
     path("login/", LoginPageView.as_view(), name="login"),
     path("signup/student/", StudentsSignUpView.as_view(), name="student_sign_up"),
     path("signup/teacher/", TeachersSignUpView.as_view(), name="teacher_sign_up"),
+    path("set-initial-dataset/", set_initial_dataset, name="set_initial_dataset"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

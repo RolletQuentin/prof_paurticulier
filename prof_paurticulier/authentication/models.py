@@ -17,9 +17,15 @@ class User(AbstractUser):
 class School(models.Model):
     name = models.CharField(max_length=100, unique=True, primary_key=True)
 
+    def __str__(self):
+        return str(self.name)
+
 
 class SchoolSubject(models.Model):
     name = models.CharField(max_length=30, unique=True, primary_key=True)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Grade(models.Model):
@@ -31,12 +37,20 @@ class Grade(models.Model):
         primary_key=True,
     )
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    profile_picture = models.ImageField(upload_to="static/images/")
+    profile_picture = models.ImageField(
+        upload_to="static/images/", blank=True, null=True
+    )
     interests = models.ManyToManyField(SchoolSubject, blank=True)
     grades = models.ManyToManyField(Grade, blank=True)
+
+    def __str__(self):
+        return str(self.user)
 
 
 class Student(models.Model):
@@ -44,3 +58,6 @@ class Student(models.Model):
     interests = models.ManyToManyField(SchoolSubject, blank=True)
     school = models.ForeignKey(School, on_delete=models.CASCADE, null=True, blank=True)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.user)
