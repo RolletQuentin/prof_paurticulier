@@ -7,6 +7,16 @@
 </head>
 <body>
 
+    <header>
+        {% if request.user.is_authenticated == False %}
+            <a href="{% url "login" %}">Se connecter</a>
+            <a href="{% url "signup" %}">S'inscrire</a>
+        {% else %}
+            <a href="{% url "logout" %}">Se déconnecter</a>
+        {% endif %}
+
+    </header>
+
     <main>
         {% block content %}{% endblock %}
     </main>

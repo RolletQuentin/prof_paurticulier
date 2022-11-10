@@ -3,7 +3,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View, CreateView
 
-# from django import forms
 from . import models, forms
 
 
@@ -36,34 +35,66 @@ class LoginPageView(View):
 
 
 # Sign Up
-class StudentsSignUpView(CreateView):
-    template_name = "authentication/student_signup.html"
-    model = models.User
-    form_class = forms.StudentsSignUpForm
-
-    def get_context_data(self, **kwargs):
-        kwargs["user_type"] = "student"
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect("home")
+def signup(request):
+    return render(request, "authentication/signup.html")
 
 
-class TeachersSignUpView(CreateView):
-    template_name = "authentication/teacher_signup.html"
-    model = models.User
-    form_class = forms.TeachersSignUpForm
+def teacher_signup_view(request):
 
-    def get_context_data(self, **kwargs):
-        kwargs["user_type"] = "student"
-        return super().get_context_data(**kwargs)
+    if request.method == "POST":
+        user_form = forms.UserForm(request.POST, prefix="UF")
+        profile_form = forms.TeacherForm(request.POST, prefix="PF")
 
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect("home")
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.save()
+
+            teacher = profile_form.save(commit=False)
+            teacher.user = models.User.objects.get(pk=user.id)
+            teacher.save()
+            teacher.interests.set(profile_form.cleaned_data.get("interests"))
+            teacher.grades.set(profile_form.cleaned_data.get("grades"))
+
+            login(request, user)
+            return redirect("home")
+
+    else:
+        user_form = forms.UserForm(prefix="UF")
+        profile_form = forms.TeacherForm(prefix="PF")
+
+    return render(
+        request,
+        "authentication/teacher_signup.html",
+        {"user_form": user_form, "teacher_profile_form": profile_form},
+    )
+
+
+def student_signup_view(request):
+
+    if request.method == "POST":
+        user_form = forms.UserForm(request.POST, prefix="UF")
+        profile_form = forms.StudentForm(request.POST, prefix="PF")
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.save()
+            student = profile_form.save(commit=False)
+            student.user = models.User.objects.get(pk=user.id)
+            student.save()
+            student.interests.set(profile_form.cleaned_data.get("interests"))
+
+            login(request, user)
+            return redirect("home")
+
+    else:
+        user_form = forms.UserForm(prefix="UF")
+        profile_form = forms.StudentForm(prefix="PF")
+
+    return render(
+        request,
+        "authentication/student_signup.html",
+        {"user_form": user_form, "student_profile_form": profile_form},
+    )
 
 
 # Update informations
@@ -71,18 +102,24 @@ class TeachersSignUpView(CreateView):
 def update_user(request):
     user = models.User.objects.get(username=request.user.username)
     if user.is_teacher:
-        form = forms.TeachersSignUpForm(instance=user)
+        teacher = models.Teacher.objects.get(user_id=request.user.id)
+        user_form = forms.UserForm(instance=user)
+        profile_form = forms.TeacherForm(instance=teacher)
     elif user.is_student:
-        form = forms.StudentsSignUpForm(instance=user)
-    else:
-        form = forms.SignUpForm(instance=user)
-    return render(request, "authentication/update_user.html", {"form": form})
+        student = models.Student.objects.get(user_id=request.user.id)
+        user_form = forms.UserForm(instance=user)
+        profile_form = forms.StudentForm(instance=student)
+    return render(
+        request,
+        "authentication/update_user.html",
+        {"user_form": user_form, "profile_form": profile_form},
+    )
 
 
 # Log out
 def logout_user(request):
     logout(request)
-    return redirect("login")
+    return redirect("home")
 
 
 # Bullshit

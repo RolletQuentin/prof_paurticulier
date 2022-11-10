@@ -2,7 +2,8 @@
 {% block content %}
     <p>Formulaire d'inscription en tant qu'étudiant</p>
     <form method="post">
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ student_profile_form.as_p }}
         {% csrf_token %}
         <button type="submit">S'inscrire</button>
     </form>

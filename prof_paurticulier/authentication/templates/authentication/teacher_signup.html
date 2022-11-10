@@ -2,7 +2,8 @@
 {% block content %}
     <p>Formulaire d'inscription en tant que professeur.</p>
     <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ teacher_profile_form.as_p}}
         {% csrf_token %}
         <button type="submit">S'inscrire</button>
     </form>

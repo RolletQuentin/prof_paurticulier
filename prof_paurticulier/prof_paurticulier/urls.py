@@ -20,8 +20,9 @@ from django.conf.urls.static import static
 
 from authentication.views import (
     LoginPageView,
-    StudentsSignUpView,
-    TeachersSignUpView,
+    signup,
+    student_signup_view,
+    teacher_signup_view,
     update_user,
     logout_user,
     home,
@@ -33,8 +34,9 @@ urlpatterns = [
     path("", home, name="home"),
     # authentication
     path("login/", LoginPageView.as_view(), name="login"),
-    path("signup/student/", StudentsSignUpView.as_view(), name="student_sign_up"),
-    path("signup/teacher/", TeachersSignUpView.as_view(), name="teacher_sign_up"),
+    path("signup", signup, name="signup"),
+    path("signup/student/", student_signup_view, name="student_sign_up"),
+    path("signup/teacher/", teacher_signup_view, name="teacher_sign_up"),
     path("user-change/", update_user, name="update_user"),
     path("logout/", logout_user, name="logout"),
     path("set-initial-dataset/", set_initial_dataset, name="set_initial_dataset"),

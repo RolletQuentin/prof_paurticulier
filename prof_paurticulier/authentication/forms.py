@@ -1,19 +1,38 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db import transaction
 
 from django import forms
 
-from authentication.models import Student, Teacher, User, SchoolSubject, School, Grade
+from authentication.models import Student, Teacher, SchoolSubject, School, Grade
 
 
-class SignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        user = get_user_model()
-        fields = ("username", "email", "first_name", "last_name")
+class UserForm(UserCreationForm):
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = (
+            "username",
+            "password1",
+            "password2",
+            "first_name",
+            "last_name",
+            "email",
+        )
+        help_text = {
+            "username": None,
+            "password1": None,
+            "password2": None,
+            "email": None,
+        }
 
 
-class StudentsSignUpForm(UserCreationForm):
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = ("profile_picture", "interests", "grades")
+
+
+class StudentForm(forms.ModelForm):
     interests = forms.ModelMultipleChoiceField(
         queryset=SchoolSubject.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -22,53 +41,26 @@ class StudentsSignUpForm(UserCreationForm):
     grade = forms.ModelChoiceField(queryset=Grade.objects.all(), required=True)
     school = forms.ModelChoiceField(queryset=School.objects.all(), required=True)
 
-    class Meta(UserCreationForm.Meta):
-        model = User
-
-    @transaction.atomic
-    def save(self):
-        user = super().save(commit=False)
-        user.is_student = True
-        user.save()
-        student = Student.objects.create(
-            user=user,
-            grade=self.cleaned_data.get("grade"),
-            school=self.cleaned_data.get("school"),
-        )
-        student.interests.add(*self.cleaned_data.get("interests"))
-        return user
+    class Meta:
+        model = Student
+        fields = ("interests", "school", "grade")
 
 
-class TeachersSignUpForm(UserCreationForm):
-    interests = forms.ModelMultipleChoiceField(
-        queryset=SchoolSubject.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-    )
-    grades = forms.ModelMultipleChoiceField(
-        queryset=Grade.objects.all(), widget=forms.CheckboxSelectMultiple
-    )
-    profil_picture = forms.ImageField(required=False)
+# # Update user forms
+# class StudentsUpdateForm(UserChangeForm):
+#     interests = forms.ModelMultipleChoiceField(
+#         queryset=SchoolSubject.objects.all(),
+#         widget=forms.CheckboxSelectMultiple,
+#         required=True,
+#     )
+#     grade = forms.ModelChoiceField(queryset=Grade.objects.all(), required=True)
+#     school = forms.ModelChoiceField(queryset=School.objects.all(), required=True)
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields["profile_picture"].required = False
-
-    class Meta(UserCreationForm.Meta):
-        model = User
-
-    @transaction.atomic
-    def save(self):
-        user = super().save(commit=False)
-        user.is_teacher = True
-        user.save()
-        teacher = Teacher.objects.create(
-            user=user,
-            profile_picture=self.cleaned_data.get("profil_picture"),
-        )
-        teacher.interests.add(*self.cleaned_data.get("interests"))
-        teacher.grades.add(*self.cleaned_data.get("grades"))
+#     class Meta(UserCreationForm.Meta):
+#         model = Teacher
 
 
+# Login Forms
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, label="Nom d’utilisateur")
     password = forms.CharField(
