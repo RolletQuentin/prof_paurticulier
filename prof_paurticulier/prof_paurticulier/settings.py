@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     # My apps
     "authentication",
+    "showcase",
 ]
 
 MIDDLEWARE = [

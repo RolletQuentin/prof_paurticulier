@@ -52,6 +52,8 @@ class Teacher(models.Model):
     )
     interests = models.ManyToManyField(SchoolSubject, blank=True)
     grades = models.ManyToManyField(Grade, blank=True)
+    short_description = models.TextField(max_length=200)
+    long_description = models.TextField(max_length=1000)
 
     def __str__(self):
         return str(self.user)

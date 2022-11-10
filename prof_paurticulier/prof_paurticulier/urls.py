@@ -25,8 +25,11 @@ from authentication.views import (
     teacher_signup_view,
     update_user,
     logout_user,
-    home,
     set_initial_dataset,
+)
+from showcase.views import (
+    home,
+    showcase,
 )
 
 urlpatterns = [
@@ -40,6 +43,8 @@ urlpatterns = [
     path("user-change/", update_user, name="update_user"),
     path("logout/", logout_user, name="logout"),
     path("set-initial-dataset/", set_initial_dataset, name="set_initial_dataset"),
+    # showcase
+    path("showcase/", showcase, name="showcase"),
 ]
 
 if settings.DEBUG:

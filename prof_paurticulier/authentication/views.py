@@ -123,8 +123,6 @@ def logout_user(request):
 
 
 # Bullshit
-def home(request):
-    return render(request, "authentication/home.html")
 
 
 def set_initial_dataset(request):

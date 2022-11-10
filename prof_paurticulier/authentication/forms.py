@@ -46,20 +46,6 @@ class StudentForm(forms.ModelForm):
         fields = ("interests", "school", "grade")
 
 
-# # Update user forms
-# class StudentsUpdateForm(UserChangeForm):
-#     interests = forms.ModelMultipleChoiceField(
-#         queryset=SchoolSubject.objects.all(),
-#         widget=forms.CheckboxSelectMultiple,
-#         required=True,
-#     )
-#     grade = forms.ModelChoiceField(queryset=Grade.objects.all(), required=True)
-#     school = forms.ModelChoiceField(queryset=School.objects.all(), required=True)
-
-#     class Meta(UserCreationForm.Meta):
-#         model = Teacher
-
-
 # Login Forms
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, label="Nom d’utilisateur")
