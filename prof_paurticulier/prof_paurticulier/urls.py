@@ -30,6 +30,7 @@ from authentication.views import (
 from showcase.views import (
     home,
     showcase,
+    teacher_view,
 )
 
 urlpatterns = [
@@ -45,6 +46,7 @@ urlpatterns = [
     path("set-initial-dataset/", set_initial_dataset, name="set_initial_dataset"),
     # showcase
     path("showcase/", showcase, name="showcase"),
+    path("teachers/<int:id>/", teacher_view, name="teacher_detail"),
 ]
 
 if settings.DEBUG:

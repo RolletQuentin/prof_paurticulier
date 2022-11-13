@@ -1,8 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    {% comment %} Style général {% endcomment %}
+    <link rel="stylesheet" href="{% static "/styles/style.css" %}" />
+    <link rel="stylesheet" href="{% static '/styles/onglet.css' %}"/>
     <title>Prof Paurticulier</title>
 </head>
 <body>
@@ -12,6 +17,7 @@
             <a href="{% url "login" %}">Se connecter</a>
             <a href="{% url "signup" %}">S'inscrire</a>
         {% else %}
+            <a href="{% url "update_user" %}">Profil</a>
             <a href="{% url "logout" %}">Se déconnecter</a>
         {% endif %}
 
@@ -20,6 +26,8 @@
     <main>
         {% block content %}{% endblock %}
     </main>
-
+    
+    <script src="{% static "/scripts/onglet.js" %}"></script>
 </body>
+
 </html>

@@ -10,8 +10,13 @@ def home(request):
 
 def showcase(request):
     teachers = Teacher.objects.all()
-
     paginator = Paginator(teachers, 2)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+
     return render(request, "showcase/showcase.html", context={"page_obj": page_obj})
+
+
+def teacher_view(request, id):
+    teacher = Teacher.objects.get(id=id)
+    return render(request, "showcase/teacher_detail.html", {"teacher": teacher})

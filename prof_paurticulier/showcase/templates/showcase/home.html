@@ -4,6 +4,28 @@
 
     <h1>Home</h1>
 
+    <h2>Pourquoi choisir Prof Paurticulier ?</h2>
+
+    <section id="onglet">
+        <ul>
+            <li>
+                <a id="a1" href="#" class="active">Élèves</a>
+            </li>
+            <li>
+                <a id="a2" href="#" class="">Professeurs</a>
+            </li>
+        </ul>
+
+        <div class="content" id="student">
+            Page élèves
+        </div>
+
+        <div class="content" id="teacher" style="display: none;">
+            Page prof
+        </div>
+
+    </section>
+
     <h2>Découvrer nos <a href="{% url "showcase" %}">profs particuliers</a></h2>
 
 {% endblock content %}

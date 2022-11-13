@@ -1,14 +1,16 @@
-<div class="teacher_display">
-    <h2>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h2>
-    <ul class="interests">
-        {% for interest in teacher.interests.all %}
-            <li>{{ interest }}</li>
-        {% endfor %}
-    </ul>
-    <ul class="grades">
-        {% for grade in teacher.grades.all %}
-            <li>{{ grade }}</li>
-        {% endfor %}
-    </ul>
-    <p>{{ teacher.short_description }}</p>
-</div>
+<a href="{% url "teacher_detail" teacher.id %}">
+    <div class="teacher_display">
+        <h2>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h2>
+        <ul class="interests">
+            {% for interest in teacher.interests.all %}
+                <li>{{ interest }}</li>
+            {% endfor %}
+        </ul>
+        <ul class="grades">
+            {% for grade in teacher.grades.all %}
+                <li>{{ grade }}</li>
+            {% endfor %}
+        </ul>
+        <p>{{ teacher.short_description }}</p>
+    </div>
+</a>

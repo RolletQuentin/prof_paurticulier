@@ -1,0 +1,60 @@
+/* --- Variables globales --- */
+* {
+    --main-font-color: black;
+    --main-bg-color: aliceblue;
+    --main-teacher-color: green;
+    --main-student-color: cornflowerblue;
+}
+
+/* --- Onglet --- */
+#onglet {
+    margin: auto;
+    width: 95%;
+}
+
+#onglet ul {
+    width: 100%;
+    display: flex;
+}
+
+#onglet ul li {
+    width: 100%;
+    justify-content: space-around;
+}
+
+#onglet ul li a {
+    display: block;
+    color: black;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    background-color: var(--main-teacher-color);
+    filter: grayscale(30%);
+    margin-left: 5px;
+    border-radius: 10px 10px 0 0;
+}
+
+#onglet ul li a:hover {
+    opacity: 0.9;
+}
+
+#onglet ul li:first-child a {
+    margin-left: 0;
+    background-color: var(--main-student-color);
+}
+
+#onglet ul .active {
+    filter: grayscale(0%);
+}
+
+.content {
+    clear: both;
+    height: 200px;
+    background-color: var(--main-teacher-color);
+    padding: 20px;
+}
+
+#student {
+    background-color: var(--main-student-color);
+}
