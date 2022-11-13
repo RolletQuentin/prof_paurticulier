@@ -1,13 +1,15 @@
 /* --- Variables globales --- */
-* {
+:root {
     --main-font-color: black;
     --main-bg-color: aliceblue;
-    --main-teacher-color: green;
-    --main-student-color: cornflowerblue;
+    --main-teacher-color: #34A853;
+    --main-student-color: #4285F4;
 }
 
 /* --- Onglet --- */
 #onglet {
+    border: 3px solid var(--main-student-color);
+    border-radius: 10px;
     margin: auto;
     width: 95%;
 }
@@ -26,13 +28,11 @@
     display: block;
     color: black;
     text-align: center;
-    height: 30px;
-    line-height: 30px;
+    height: 100px;
+    line-height: 100px;
     text-decoration: none;
     background-color: var(--main-teacher-color);
     filter: grayscale(30%);
-    margin-left: 5px;
-    border-radius: 10px 10px 0 0;
 }
 
 #onglet ul li a:hover {
@@ -51,10 +51,5 @@
 .content {
     clear: both;
     height: 200px;
-    background-color: var(--main-teacher-color);
     padding: 20px;
-}
-
-#student {
-    background-color: var(--main-student-color);
 }

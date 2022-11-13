@@ -43,14 +43,16 @@ def teacher_signup_view(request):
 
     if request.method == "POST":
         user_form = forms.UserForm(request.POST, prefix="UF")
-        profile_form = forms.TeacherForm(request.POST, prefix="PF")
+        profile_form = forms.TeacherForm(request.POST, request.FILES, prefix="PF")
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
+            user.is_teacher = True
             user.save()
 
             teacher = profile_form.save(commit=False)
             teacher.user = models.User.objects.get(pk=user.id)
+            teacher.profile_picture = profile_form.cleaned_data.get("profile_picture")
             teacher.save()
             teacher.interests.set(profile_form.cleaned_data.get("interests"))
             teacher.grades.set(profile_form.cleaned_data.get("grades"))
@@ -77,7 +79,9 @@ def student_signup_view(request):
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
+            user.is_student = True
             user.save()
+
             student = profile_form.save(commit=False)
             student.user = models.User.objects.get(pk=user.id)
             student.save()

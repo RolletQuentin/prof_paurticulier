@@ -8,26 +8,37 @@
     {% comment %} Style général {% endcomment %}
     <link rel="stylesheet" href="{% static "/styles/style.css" %}" />
     <link rel="stylesheet" href="{% static '/styles/onglet.css' %}"/>
+    <link rel="stylesheet" href="{% static '/styles/showcase_style.css' %}"/>
     <title>Prof Paurticulier</title>
 </head>
-<body>
+<body id="output_container">
 
     <header>
-        {% if request.user.is_authenticated == False %}
-            <a href="{% url "login" %}">Se connecter</a>
-            <a href="{% url "signup" %}">S'inscrire</a>
-        {% else %}
-            <a href="{% url "update_user" %}">Profil</a>
-            <a href="{% url "logout" %}">Se déconnecter</a>
-        {% endif %}
+        <a href="{% url 'home' %}"><h1>Prof Paurticulier</h1></a>
+        <div id="connection_button">
+            {% if request.user.is_authenticated == False %}
+                <a href="{% url "login" %}">Se connecter</a>
+                <a id="signup" href="#">S'inscrire</a>
+            {% else %}
+                <a href="{% url "update_user" %}">Profil</a>
+                <a href="{% url "logout" %}">Se déconnecter</a>
+            {% endif %}
+        </div>
 
+        
     </header>
+    <div id="selection_signup" class="">
+        <a href="{% url 'teacher_sign_up' %}">Professeur</a>
+        <a href="{% url 'student_sign_up' %}">Élève</a>
+    </div>
 
     <main>
         {% block content %}{% endblock %}
     </main>
     
+    {% comment %} Scripts {% endcomment %}
     <script src="{% static "/scripts/onglet.js" %}"></script>
+    <script src="{% static '/scripts/selector_signup.js' %}"></script>
 </body>
 
 </html>

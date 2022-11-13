@@ -1,5 +1,6 @@
-<a href="{% url "teacher_detail" teacher.id %}">
-    <div class="teacher_display">
+<div class="teacher_display">
+    <a href="{% url "teacher_detail" teacher.id %}">
+        <img src="{{ teacher.profile_picture.url }}" alt="profile picture">
         <h2>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h2>
         <ul class="interests">
             {% for interest in teacher.interests.all %}
@@ -12,5 +13,5 @@
             {% endfor %}
         </ul>
         <p>{{ teacher.short_description }}</p>
-    </div>
-</a>
+    </a>
+</div>

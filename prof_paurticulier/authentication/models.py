@@ -48,7 +48,7 @@ class Teacher(models.Model):
         User, on_delete=models.CASCADE, null=True, related_name="teacher_profile"
     )
     profile_picture = models.ImageField(
-        upload_to="static/images/", blank=True, null=True
+        upload_to="static/images/", default="static/images/avatar.jpg"
     )
     interests = models.ManyToManyField(SchoolSubject, blank=True)
     grades = models.ManyToManyField(Grade, blank=True)

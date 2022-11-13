@@ -89,9 +89,73 @@ acronym {
 /* --- FIN Reset CSS --- */
 
 /* --- Variables globales --- */
-* {
+:root {
     --main-font-color: black;
     --main-bg-color: aliceblue;
-    --main-teacher-color: green;
-    --main-student-color: cornflowerblue;
+    --second-bg-color: rgb(82, 82, 177);
+    --main-teacher-color: #34A853;
+    --main-student-color: #4285F4;
+}
+
+/* --- Main style --- */
+h1 {
+    font-size: 2em;
+    padding: 15px;
+}
+
+/* --- Header --- */
+header {
+    position: relative;
+    background-color: var(--second-bg-color);
+    justify-content: space-around;
+}
+
+header h1 {
+    width: auto;
+    text-align: center;
+    margin: auto;
+}
+
+#connection_button {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#connection_button a {
+    padding: 5px;
+}
+
+#connection_button a:hover {
+    background-color: rgb(140, 140, 230) !important;
+    transition: ease 0.3s;
+}
+
+#selection_signup {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+#selection_signup.active {
+    opacity: 1;
+    height: auto;
+}
+
+#selection_signup a {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#selection_signup a:hover {
+    background-color: silver;
+    transition: ease 0.3s;
 }

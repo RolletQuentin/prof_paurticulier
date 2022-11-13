@@ -4,10 +4,11 @@
 
     <h1>Profs particuliers</h1>
 
-    {% for teacher in page_obj %}
-        {% include "showcase/partials/display_teacher.html" %}
-    {% endfor %}
-
+    <section id="teachers">
+        {% for teacher in page_obj %}
+            {% include "showcase/partials/display_teacher.html" %}
+        {% endfor %}
+    </section>
     <span>
         {% if page_obj.has_previous %}
             <a href="?page=1">≤ première</a>

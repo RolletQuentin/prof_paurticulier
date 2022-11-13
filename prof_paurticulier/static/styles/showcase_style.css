@@ -1,0 +1,19 @@
+:root {
+    --main-font-color: black;
+    --main-bg-color: aliceblue;
+    --second-bg-color: rgb(82, 82, 177);
+    --main-teacher-color: #34A853;
+    --main-student-color: #4285F4;
+}
+
+#teachers {
+    display: flex;
+}
+
+.teacher_display {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 25%;
+    padding: 30px;
+    margin: 50px;
+}

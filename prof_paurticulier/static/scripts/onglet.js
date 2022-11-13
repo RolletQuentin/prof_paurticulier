@@ -1,11 +1,14 @@
-ong1 = document.getElementById('a1');
-ong2 = document.getElementById('a2');
+ong = document.getElementById('onglet');
+student_ong = document.getElementById('a1');
+teacher_ong = document.getElementById('a2');
 student = document.getElementById('student');
 teacher = document.getElementById('teacher');
+student_color = getComputedStyle(document.documentElement).getPropertyValue('--main-student-color');
+teacher_color = getComputedStyle(document.documentElement).getPropertyValue('--main-teacher-color');
 
 function nonactive() {
-    ong1.className = "";
-    ong2.className = "";
+    student_ong.className = "";
+    teacher_ong.className = "";
 }
 
 function active(self) {
@@ -13,14 +16,16 @@ function active(self) {
     self.className = "active";
 }
 
-ong1.addEventListener("click", function () {
+student_ong.addEventListener("click", function () {
     student.style.display = "";
+    ong.style.borderColor = student_color;
     teacher.style.display = "none";
     active(this);
 })
 
-ong2.addEventListener("click", function () {
+teacher_ong.addEventListener("click", function () {
     student.style.display = "none";
     teacher.style.display = "";
+    ong.style.borderColor = teacher_color;
     active(this);
 })
