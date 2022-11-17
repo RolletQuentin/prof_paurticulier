@@ -1,19 +1,149 @@
 :root {
-    --main-font-color: black;
-    --main-bg-color: aliceblue;
-    --second-bg-color: rgb(82, 82, 177);
-    --main-teacher-color: #34A853;
-    --main-student-color: #4285F4;
+    --maths-color: #ffadad;
+    --maths-border-color: #ca8d8c;
+    --physics-color: #a0c4ff;
+    --physics-border-color: #7793c0;
+    --chemistry-color: #fdffb6;
+    --chemistry-border-color: #d9db9a;
+    --english-color: #caffbf;
+    --english-border-color: #8fb487;
+    --informatic-color: #ffc6ff;
+    --informatic-border-color: #b189b1;
+}
+
+#showcase_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_column {
+    border-right: 1px solid black;
+    padding: 50px;
+}
+
+.showcase {
+    display: flex;
+}
+
+.showcase span a {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 50%;
+    color: white;
+    background-color: var(--second-bg-color);
 }
 
 #teachers {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .teacher_display {
+    display: block;
+    overflow: hidden;
     border: 1px solid black;
     border-radius: 10px;
-    width: 25%;
-    padding: 30px;
+    width: 300px;
     margin: 50px;
+}
+
+.teacher_display img {
+    width: auto;
+    height: 300px;
+    width: 300px;
+    border-bottom: 1px solid black;
+}
+
+.teacher_display .content {
+    padding: 20px;
+}
+
+.teacher_display .content h2 {
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+.teacher_display .interests,
+.teacher_display .grades {
+    margin: 15px 0px 15px 0px;
+}
+
+.teacher_display .interests li,
+.teacher_display .grades li {
+    display: inline;
+    border: 1px solid black;
+    margin: 0px 3px 0px 0px;
+    padding: 3px 5px 3px 5px;
+    border-radius: 50% / 80%;
+}
+
+/* --- Color lesson --- */
+#maths {
+    background-color: var(--maths-color);
+    border-color: var(--maths-border-color);
+}
+
+#physique {
+    background-color: var(--physics-color);
+    border-color: var(--physics-border-color);
+}
+
+#chimie {
+    background-color: var(--chemistry-color);
+    border-color: var(--chemistry-border-color);
+}
+
+#anglais {
+    background-color: var(--english-color);
+    border-color: var(--english-border-color);
+}
+
+#informatique {
+    background-color: var(--informatic-color);
+    border-color: var(--informatic-border-color);
+}
+
+/* --- Research filters --- */
+
+#research_filter p {
+    margin: 25px 0px 25px 0px;
+}
+
+#research_filter p label:first-child {
+    padding: 5px 0px 5px 0px;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+#research_filter div>label {
+    position: relative;
+    display: block;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+}
+
+#research_filter .active {
+    background-color: var(--second-bg-color);
+    transition: 0.2s linear;
+}
+
+#research_filter .active:hover {
+    background-color: var(--second-bg-color);
+    transform: scale(1.05);
+    transition: 0.2 linear;
+}
+
+#research_filter div>label:hover {
+    background-color: grey;
+    transform: scale(1.05);
+    transition: 0.2s linear;
+}
+
+#research_filter label>input[type="checkbox"] {
+    display: none;
 }

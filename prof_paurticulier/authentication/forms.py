@@ -8,7 +8,7 @@ from authentication.models import Student, Teacher, SchoolSubject, School, Grade
 
 
 class UserForm(UserCreationForm):
-    class Meta(UserChangeForm.Meta):
+    class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = (
             "username",
@@ -17,6 +17,7 @@ class UserForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
+            "phone",
         )
         help_text = {
             "username": None,
@@ -26,7 +27,36 @@ class UserForm(UserCreationForm):
         }
 
 
+class UpdateUserForm(UserChangeForm):
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "phone",
+        )
+        exclude = (
+            "password",
+            "password1",
+            "password2",
+        )
+        help_text = {
+            "username": None,
+        }
+
+
 class TeacherForm(forms.ModelForm):
+    interests = forms.ModelMultipleChoiceField(
+        queryset=SchoolSubject.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+    )
+    grades = forms.ModelMultipleChoiceField(
+        queryset=Grade.objects.all(), widget=forms.CheckboxSelectMultiple, required=True
+    )
+
     class Meta:
         model = Teacher
         fields = ("profile_picture", "interests", "grades")

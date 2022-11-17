@@ -1,27 +1,55 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+    <div id="showcase_container">
+        <aside class="left_column" id="research_filter">
 
-    <h1>Profs particuliers</h1>
+            <h2>Filtrer votre recherche :</h2>
+            <form method="post" action="{% url 'showcase' %}">
+                {% csrf_token %}
+                {{ filter_form.as_p }}
+    
+                <button id="delete_filters">Effacer les filtres</button>
+                <button type="submit">Appliquer les filtres</button>
+            </form>
+        </aside>
+    
+        <div class="right_column">
+            <h1>Profs particuliers</h1>
+    
+            <section class="showcase">
+                <span>
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" title="première page"><<</a>
+                        <a href="?page={{ page_obj.previous_page_number }}" title="page précédente"><</a>
+                    {% endif %}
+                </span>
+            
+                <section id="teachers">
+                    {% if not teachers %}
+                        <p>Nous sommes désolé, aucun prof ne correspond à votre recherche.</p>
+                    {% else %}
+                        {% for teacher in page_obj %}
+                            {% include "showcase/partials/display_teacher.html" %}
+                        {% endfor %}
+                    {% endif %}
+        
+                </section>
+            
+                <span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" title="page suivante">></a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" title="dernière page">>></a>
+                    {% endif %}
+                </span>
+        
+                <span>
+                    Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
+                </span>
+            </section>
+        </div>
+    </div>
 
-    <section id="teachers">
-        {% for teacher in page_obj %}
-            {% include "showcase/partials/display_teacher.html" %}
-        {% endfor %}
-    </section>
-    <span>
-        {% if page_obj.has_previous %}
-            <a href="?page=1">≤ première</a>
-            <a href="?page={{ page_obj.previous_page_number }}">précédente</a>
-        {% endif %}
 
-        <span>
-            Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">suivante</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">dernière ≥</a>
-        {% endif %}
-    </span>
+    <script src="{% static '/scripts/checkbox-color.js' %}"></script>
 {% endblock content %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <h1>Home</h1>
@@ -32,5 +32,6 @@
 
     <h2>Découvrer nos <a href="{% url "showcase" %}">profs particuliers</a></h2>
 
+    <script src="{% static "/scripts/onglet.js" %}"></script>
 {% endblock content %}
 

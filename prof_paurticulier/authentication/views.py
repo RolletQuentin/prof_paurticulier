@@ -102,16 +102,17 @@ def student_signup_view(request):
 
 
 # Update informations
+# TODO : save changes
 @login_required
 def update_user(request):
     user = models.User.objects.get(username=request.user.username)
     if user.is_teacher:
         teacher = models.Teacher.objects.get(user_id=request.user.id)
-        user_form = forms.UserForm(instance=user)
+        user_form = forms.UpdateUserForm(instance=user)
         profile_form = forms.TeacherForm(instance=teacher)
     elif user.is_student:
         student = models.Student.objects.get(user_id=request.user.id)
-        user_form = forms.UserForm(instance=user)
+        user_form = forms.UpdateUserForm(instance=user)
         profile_form = forms.StudentForm(instance=student)
     return render(
         request,

@@ -48,7 +48,7 @@
     filter: grayscale(0%);
 }
 
-.content {
+#onglet .content {
     clear: both;
     height: 200px;
     padding: 20px;
