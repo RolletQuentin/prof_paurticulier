@@ -10,7 +10,7 @@ def home(request):
 
 
 def showcase(request):
-    # TODO : https://www.abidibo.net/blog/2014/09/19/paginating-results-django-form-post-request/
+    # TODO : https://stackoverflow.com/questions/71443933/paginator-and-post-request-for-searchform
     def teachers_filter(teachers, interests, grades):
         teachers_filter_list_interests = []
         teachers_filter_list = []

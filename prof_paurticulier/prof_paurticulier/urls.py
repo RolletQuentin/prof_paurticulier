@@ -33,12 +33,17 @@ from showcase.views import (
     teacher_view,
 )
 
+from blog.views import (
+    blog_view,
+    blog_details_view,
+)
+
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls, name="admin"),
     path("", home, name="home"),
     # authentication
     path("login/", LoginPageView.as_view(), name="login"),
-    path("signup", signup, name="signup"),
+    path("signup/", signup, name="signup"),
     path("signup/student/", student_signup_view, name="student_sign_up"),
     path("signup/teacher/", teacher_signup_view, name="teacher_sign_up"),
     path("user-change/", update_user, name="update_user"),
@@ -47,6 +52,9 @@ urlpatterns = [
     # showcase
     path("showcase/", showcase, name="showcase"),
     path("teachers/<int:id>/", teacher_view, name="teacher_detail"),
+    #blogs
+    path("blog/", blog_view, name="blog"),
+    path("blog/<int:id>/", blog_details_view, name="blog_detail"),
 ]
 
 if settings.DEBUG:

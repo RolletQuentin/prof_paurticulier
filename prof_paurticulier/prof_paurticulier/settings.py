@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # My apps
     "authentication",
     "showcase",
+    "blog",
 ]
 
 MIDDLEWARE = [

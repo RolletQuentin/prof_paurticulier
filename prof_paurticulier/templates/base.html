@@ -25,7 +25,19 @@
             {% endif %}
         </div>
 
-        
+        <nav>
+            <ul>
+                <a href="{% url 'showcase' %}">
+                    <li>Professeurs</li>
+                </a>
+                <a href="{% url 'blog' %}">
+                    <li>Blog</li>
+                </a>
+                <a href="/admin/">
+                    <li>Admin</li>
+                </a>
+            </ul>
+        </nav>
     </header>
     <div id="selection_signup" class="">
         <a href="{% url 'teacher_sign_up' %}">Professeur</a>
